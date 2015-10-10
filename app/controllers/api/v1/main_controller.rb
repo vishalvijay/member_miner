@@ -10,14 +10,14 @@ class Api::V1::MainController < AppController
         end
         paginate page: (params[:page]||1), per_page: (params[:limit]||25) #pagination
       end
-      respond_with s.results
+      format_based_respose s.results
     else
       respond_errors "Required parameter missing", :not_acceptable
     end
   end
 
   def count
-    respond_with({count: Member.count})
+    format_based_respose({count: Member.count})
   end
 
   def ethnicity_averages
@@ -27,7 +27,7 @@ class Api::V1::MainController < AppController
         members = Member.where ethnicity: ethnicity
         mean_height = members.sum(:height)/members.count #calculating mean
         mean_weight = members.sum(:weight)/members.count #calculating mean
-        respond_with({mean_height: mean_height, mean_weight: mean_weight})
+        format_based_respose({mean_height: mean_height, mean_weight: mean_weight})
       else
         respond_errors "Unkown ethnicity", :not_found
       end
@@ -64,7 +64,7 @@ class Api::V1::MainController < AppController
         with(:drink, drink) unless drink.nil?
         paginate page: (params[:page]||1), per_page: (params[:limit]||25)
       end
-      respond_with s.results
+      format_based_respose s.results
     else
       respond_errors "Required parameter missing", :not_acceptable
     end

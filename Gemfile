@@ -52,3 +52,4 @@ gem 'responders'
 
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
+gem 'prawn-rails'
