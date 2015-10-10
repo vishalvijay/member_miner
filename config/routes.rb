@@ -5,6 +5,7 @@ Rails.application.routes.draw do
         resources :members, only: [] do
           collection do
             get :search_caption
+            get :count
           end
         end
       end

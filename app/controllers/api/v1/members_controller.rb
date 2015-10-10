@@ -15,4 +15,8 @@ class Api::V1::MembersController < AppController
       respond_errors "Required parameter missing", :not_acceptable
     end
   end
+
+  def count
+    respond_with({count: Member.count})
+  end
 end
