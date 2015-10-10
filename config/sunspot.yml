@@ -1,7 +1,7 @@
 production:
   solr:
     hostname: aws-ec2-de-solr5-1.opensolr.com
-    port: 443
+    port: 80
     path: /solr/member_miner_prod
     log_level: WARNING
 
