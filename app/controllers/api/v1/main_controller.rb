@@ -35,4 +35,37 @@ class Api::V1::MainController < AppController
       respond_errors "Required parameter missing", :not_acceptable
     end
   end
+
+  def social_habits
+    vegetarian = params[:vegetarian]
+    drink = params[:drink]
+    if vegetarian.present?
+      vegetarian = if vegetarian.downcase == "yes"
+        true
+      elsif vegetarian.downcase == "no"
+        false
+      else
+        nil
+      end
+    end
+    if drink.present?
+      drink = if drink.downcase == "yes"
+        true
+      elsif drink.downcase == "no"
+        false
+      else
+        nil
+      end
+    end
+    if !vegetarian.nil? || !drink.nil?
+      s = Sunspot.search(Member) do
+        with(:is_veg, vegetarian) unless vegetarian.nil?
+        with(:drink, drink) unless drink.nil?
+        paginate page: (params[:page]||1), per_page: (params[:limit]||25)
+      end
+      respond_with s.results
+    else
+      respond_errors "Required parameter missing", :not_acceptable
+    end
+  end
 end

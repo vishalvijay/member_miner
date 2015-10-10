@@ -5,6 +5,7 @@ Rails.application.routes.draw do
         get :search_caption, to: "main#search_caption"
         get :count, to: "main#count"
         get "ethnicity/:ethnicity/averages", to: "main#ethnicity_averages"
+        get :social_habits, to: "main#social_habits"
       end
     end
   end
