@@ -8,7 +8,7 @@ class Member < ActiveRecord::Base
     float :height
     boolean :is_veg
     boolean :drink
-    # date :dob
+    date :dob
   end
 
   def self.find_ethnicity_name id
