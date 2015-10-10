@@ -46,7 +46,7 @@ group :development do
 end
 
 gem 'sunspot_rails'
-gem 'sunspot_solr'
+gem 'sunspot_solr', group: :development
 gem 'responders'
 
 gem 'activeadmin', github: 'activeadmin'
