@@ -9,15 +9,15 @@ class AppController < ApplicationController
   end
 
   def format_based_respose hash, status = :ok
-    respond_to do |format|
-      if params[:response].present? && params[:response].downcase == "pdf"
-        pdf_respose hash, status
-      else
+    if params[:response].present? && params[:response].downcase == "pdf"
+      pdf_respose hash, status
+    else
+      respond_to do |format|
         format.pdf do
           pdf_respose hash, status
         end
         format.all do
-          respond_with(hash, status: status)
+          render json: hash, status: status
         end
       end
     end
@@ -26,5 +26,10 @@ class AppController < ApplicationController
   private
 
   def pdf_respose hash, status
+    filename = Rails.root.join("tmp").join("response_#{DateTime.now.strftime('%Q')}.pdf").to_s
+    Prawn::Document.generate(filename) do
+      text hash.to_json
+    end
+    send_file filename, type: "application/pdf", status: status, disposition: :inline
   end
 end
