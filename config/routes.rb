@@ -2,12 +2,9 @@ Rails.application.routes.draw do
   api vendor_string: "member_miner", default_version: 1 do
     version 1 do
       cache as: 'v1' do
-        resources :members, only: [] do
-          collection do
-            get :search_caption
-            get :count
-          end
-        end
+        get :search_caption, to: "main#search_caption"
+        get :count, to: "main#count"
+        get "ethnicity/:ethnicity/averages", to: "main#ethnicity_averages"
       end
     end
   end
